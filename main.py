@@ -28,5 +28,7 @@ for all_prices in all_prices:
         print(text)
 
 avg_price = round(sum(all_prices_text) / len(all_prices_text), 2)
+price_three_years = round((avg_price * 36 / dolar_blue), 2)
+
 print('El precio promedio de alquiler es $', avg_price) 
-print('El precio por 3 años de alquiler en dolares es US$', round((avg_price * 36 / dolar_blue), 2))
+print('El precio por 3 años de alquiler en dolares es US$', price_three_years)
