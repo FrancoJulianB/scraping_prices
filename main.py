@@ -1,4 +1,5 @@
 import re
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -8,6 +9,8 @@ s=Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=s)
 
 base_link = 'https://www.zonaprop.com.ar/departamentos-alquiler-nueva-cordoba-con-balcon-desde-1-hasta-2-habitaciones-2-ambientes-publicado-hace-menos-de-1-mes-mas-10000-pesos-orden-publicado-descendente.html'
+dolar_blue = (requests.get('https://api.bluelytics.com.ar/v2/latest')).json()['blue']['value_sell']
+
 
 #Buscamos los elementos que contienen precio.
 driver.get(base_link)
@@ -25,4 +28,5 @@ for all_prices in all_prices:
         print(text)
 
 avg_price = round(sum(all_prices_text) / len(all_prices_text), 2)
-print('El precio promedio de alquiler es $' + str(avg_price)) 
+print('El precio promedio de alquiler es $', avg_price) 
+print('El precio por 3 años de alquiler en dolares es US$', round((avg_price * 36 / dolar_blue), 2))
